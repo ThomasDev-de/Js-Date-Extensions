@@ -33,11 +33,12 @@ let date = startDay.clone().subDays(1);
 let weeks = [];
 while (date <= endDay) {
     weeks.push({
-        week: date.getWeek(),
+        
         days: Array(7).fill(0).map(() => {
             date = date.clone().addDays(1);
             return date;
-        })
+        }),
+        week: date.getWeek()
     });
 }
 console.log(weeks);
