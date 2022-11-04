@@ -173,3 +173,28 @@ Date.prototype.formatDate = function (asArray) {
 
     return asArray ? [year, month, day] : [year, month, day].join('-');
 }
+/**
+ *
+ * @param {Date|null} Date
+ * @return {*[]}
+ */
+Date.prototype.getCalendar = function (date = null)
+{
+    const today = date || new Date(this.valueOf());
+    const startDay = today.getFirstDayOfMonth().getMonday();
+    const endDay = today.getLastDayOfMonth().getSunday();
+    // Set the start date one day back,
+    // because in the following map function the date is incremented to one day.
+    let d = startDay.clone().subDays(1);
+    let weeks = [];
+    while (d < endDay) {
+        weeks.push({
+            days: Array(7).fill(0).map(() => {
+                d = d.clone().addDays(1);
+                return d;
+            }),
+            week: d.getWeek(),
+        });
+    }
+    return weeks;
+}

@@ -8,21 +8,7 @@
 <script src="../dist/js-date-extensions.js"></script>
     <script type="text/javascript">
         const today = new Date();
-        const startDay = today.getFirstDayOfMonth().getMonday();
-        const endDay = today.getLastDayOfMonth().getSunday();
-        // Set the start date one day back,
-        // because in the following map function the date is incremented to one day.
-        let date = startDay.clone().subDays(1);
-        let weeks = [];
-        while (date < endDay) {
-            weeks.push({
-                days: Array(7).fill(0).map(() => {
-                    date = date.clone().addDays(1);
-                    return date;
-                }),
-                week: date.getWeek(),
-            });
-        }
+        let weeks = today.getCalendar();
         console.log(weeks);
 </script>
 </body>
