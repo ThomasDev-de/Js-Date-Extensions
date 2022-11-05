@@ -146,8 +146,8 @@ let toDate = new Date('2022-11-14');
 date.getCountDays(toDate); // 14
 ```
 ### getMonthCalendar
-Returns all data of one month as array
-@param {Date|null} toDate  
+Returns all data of one month as array  
+@param {Date|null} toDate   
 @returns {number}
 
 ```js
