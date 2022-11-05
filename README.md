@@ -148,7 +148,7 @@ date.getCountDays(toDate); // 14
 ### getMonthCalendar
 Returns all data of one month as array  
 @param {Date|null} toDate   
-@returns {number}
+@return {*[]}
 
 ```js
 // example
