@@ -1,4 +1,3 @@
-
 // noinspection JSUnusedGlobalSymbols
 
 /**
@@ -41,12 +40,13 @@ Date.prototype.addMonths = function (months) {
  */
 Date.prototype.subMonths = function (months) {
     const month = this.getMonth();
-    this.setMonth(this.getMonth() - 1);
+    this.setMonth(this.getMonth() - months);
     while (this.getMonth() === month) {
-        this.setDate(this.getDate() - 1);
+        this.subDays(1);
     }
     return this;
 }
+
 /**
  * Checks if the year of the date is a leap year
  * @returns {boolean}
@@ -60,8 +60,51 @@ Date.prototype.isLeapYear = function () {
  *
  * @return {boolean}
  */
-Date.prototype.isMonday = function() {
+Date.prototype.isMonday = function () {
     return this.getDay() === 1;
+}
+/**
+ *
+ * @return {boolean}
+ */
+Date.prototype.isTuesday = function () {
+    return this.getDay() === 2;
+}
+/**
+ *
+ * @return {boolean}
+ */
+Date.prototype.isWednesday = function () {
+    return this.getDay() === 3;
+}
+/**
+ *
+ * @return {boolean}
+ */
+Date.prototype.isThursday = function () {
+    return this.getDay() === 4;
+}
+
+/**
+ *
+ * @return {boolean}
+ */
+Date.prototype.isFriday = function () {
+    return this.getDay() === 5;
+}
+/**
+ *
+ * @return {boolean}
+ */
+Date.prototype.isSaturday = function () {
+    return this.getDay() === 6;
+}
+/**
+ *
+ * @return {boolean}
+ */
+Date.prototype.isSunday = function () {
+    return this.getDay() === 0;
 }
 
 /**
@@ -88,11 +131,12 @@ Date.prototype.getLastDayOfMonth = function () {
     return new Date(this.getFullYear(), this.getMonth() + 1, 0);
 }
 
+
 /**
  * Determine the previous Monday of the current date
  * @returns {Date}
  */
-Date.prototype.getMonday = function () {
+Date.prototype.getFirstDayOfWeek = function () {
     let d = new Date(this.valueOf());
     let day = d.getDay(),
         diff = d.getDate() - day + (day === 0 ? -6 : 1); // adjust when day is sunday
@@ -100,10 +144,10 @@ Date.prototype.getMonday = function () {
 }
 
 /**
- * Determine the Friday of the current date
+ * Determine the Sunday of the current date
  * @returns {Date}
  */
-Date.prototype.getSunday = function () {
+Date.prototype.getLastDayOfWeek = function () {
     let d = new Date(this.valueOf());
     const first = d.getDate() - d.getDay() + 1;
     const last = first + 6;
@@ -139,7 +183,7 @@ Date.prototype.getWeek = function () {
  * @param {Date} toDate
  * @return {number}
  */
- Date.prototype.getCountWeeks = function (toDate) {
+Date.prototype.getCountWeeks = function (toDate) {
     return Math.round(
         Math.abs(toDate.getTime() - this.getTime()) / (1000 * 60 * 60 * 24 * 7),
     );
@@ -174,26 +218,24 @@ Date.prototype.formatDate = function (asArray) {
     return asArray ? [year, month, day] : [year, month, day].join('-');
 }
 /**
- *
- * @param {Date|null} Date
+ * Returns all data of one month as array
  * @return {*[]}
+ * @param {Date|null} date
  */
-Date.prototype.getCalendar = function (date = null)
-{
+Date.prototype.getMonthCalendar = function (date = null) {
     const today = date || new Date(this.valueOf());
-    const startDay = today.getFirstDayOfMonth().getMonday();
-    const endDay = today.getLastDayOfMonth().getSunday();
-    // Set the start date one day back,
-    // because in the following map function the date is incremented to one day.
-    let d = startDay.clone().subDays(1);
+    const startDay = today.getFirstDayOfMonth().getFirstDayOfWeek();
+    const endDay = today.getLastDayOfMonth().getLastDayOfWeek();
+
+    let d = startDay.clone();
     let weeks = [];
-    while (d < endDay) {
+    while (d <= endDay) {
         weeks.push({
+            week: d.getWeek(),
             days: Array(7).fill(0).map(() => {
                 d = d.clone().addDays(1);
                 return d;
-            }),
-            week: d.getWeek(),
+            })
         });
     }
     return weeks;

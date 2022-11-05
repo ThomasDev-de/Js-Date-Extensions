@@ -3,13 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <title>Demo</title>
+    <style>
+        table {
+            font-family: Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            /*width: 100%;*/
+        }
+
+        table th{
+            background-color: #f2f2f2;
+        }
+        table td, table th {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+            width: 20px;
+        }
+        table td.active {
+            font-weight: bold;
+        }
+
+        table tr td:first-child{background-color: #f2f2f2;}
+
+        table tr:hover {background-color: #ddd;}
+    </style>
 </head>
 <body>
+<table class="table">
+    <thead>
+    <tr>
+        <th></th>
+        <th>M</th>
+        <th>T</th>
+        <th>W</th>
+        <th>T</th>
+        <th>F</th>
+        <th>S</th>
+        <th>S</th>
+    </tr>
+    </thead>
+    <tbody></tbody>
+</table>
 <script src="../dist/js-date-extensions.js"></script>
     <script type="text/javascript">
         const today = new Date();
-        let weeks = today.getCalendar();
-        console.log(weeks);
+        let weeks = today.getMonthCalendar();
+        let tbody = document.getElementsByTagName('tbody')[0];
+
+        weeks.forEach(o => {
+            let row = document.createElement('tr');
+            let weekTd = document.createElement('td');
+            weekTd.innerText = o.week;
+            row.appendChild(weekTd);
+            o.days.forEach(date => {
+                let dateTd = document.createElement('td');
+                dateTd.innerText = date.getUTCDate();
+                if (date === today){
+                    dateTd.classList.add('active');
+                }
+                row.appendChild(dateTd);
+            })
+
+            tbody.appendChild(row);
+        });
 </script>
 </body>
 </html>

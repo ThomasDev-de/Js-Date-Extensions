@@ -1,45 +1,220 @@
 # Js-Date-Extensions
 
-```javascript
+## Method that manipulate the Date object
+### addDays
+Adds a specified number of days to the date  
+@param {number} days  
+@return {Date}
+```js
+// example
 let date = new Date('2022-11-01');
-// change the date object
-date
-    .addDays(1) // 2022-11-02
-    .subDays(2) // 2022-10-31
-    .addMonths(3) // 2023-01-31
-    .subMonths(3); // 2022-10-31
+date.addDays(4); // 2022-11-05
+```
+### subDays
+Subtracts a specified number of days from the date  
+@param {number} days  
+@returns {Date}
+```js
+// example
+let date = new Date('2022-11-01');
+date.subDays(4); // 2022-10-28
+```
+### addMonths
+Adds a specified number of months to the date  
+@param {number} months  
+@returns {Date}
+```js
+// example
+let date = new Date('2022-11-01');
+date.addMonths(4); // 2023-03-01
+```
 
-// create a new instance with clone
-let newDate = date.clone().addDays(10);
+### subMonths
+Subtracts a specified number of months from the date  
+@param {number} months  
+@returns {Date}
+```js
+// example
+let date = new Date('2022-11-01');
+date.subMonths(1); // 2022-10-01
+```
+## Methods that return a new instance of the Date object
 
-// check mehtods
-date.isLeapYear(); // false
-date.isMonday(); // true
+### clone
+@returns {Date}
+```js
+// example
+let date = new Date('2022-11-01');
+let copyDate = date.clone(); // 2022-10-01
+```
+### getFirstDayOfMonth
+Determine the first day of the current month  
+@returns {Date}
+```js
+// example
+let date = new Date('2022-11-10');
+let firstOfMonth = date.getFirstDayOfMonth(); // 2022-11-01
+```
+### getLastDayOfMonth
+Determine the last day of the current month  
+@returns {Date}
+```js
+// example
+let date = new Date('2022-11-10');
+let firstOfMonth = date.getLastDayOfMonth(); // 2022-11-30
+```
+### getFirstDayOfWeek
 
-// follow methods create a new date instance
+Determine the previous Monday of the current date  
+@returns {Date}
 
-date.getDaysInMonth(); // 31
-date.getFirstDayOfMonth(); // 2022-10-01
-date.getLastDayOfMonth(); // 2022-10-31
+```js
+// example
+let date = new Date('2022-11-10');
+let prevMonday = date.getFirstDayOfWeek(); // 2022-11-07
+```
+### getLastDayOfWeek
+Determine the Sunday of the current date  
+@returns {Date}
+```
+// example
+let date = new Date('2022-11-10');
+let nextSunday = date.getLastDayOfWeek(); // 2022-11-13
+```
 
-// example get month calendar
-
-const today = new Date();
-const startDay = today.getFirstDayOfMonth().getMonday();
-const endDay = today.getLastDayOfMonth().getSunday();
-
-let date = startDay.clone().subDays(1);
-
-let weeks = [];
-while (date <= endDay) {
-    weeks.push({
-        
-        days: Array(7).fill(0).map(() => {
-            date = date.clone().addDays(1);
-            return date;
-        }),
-        week: date.getWeek()
-    });
+## Test methods that return none date object
+### isLeapYear
+Checks if the year of the date is a leap year  
+@returns {boolean}
+```js
+// example
+let date = new Date('2024-11-01');
+if (date.isLeapYear()) // true
+{
+    // do something
 }
-console.log(weeks);
+```
+### isMonday, isTuesday, isWednesday, isThursday, isFriday, isSaturday, isSunday
+Checks the date for a weekday  
+@returns {boolean}
+```js
+// example
+let date = new Date('2022-11-01');
+date.isMonday(); // false
+date.isTuesday(); // true
+date.isWednesday(); // false
+date.isThursday(); // false
+date.isFriday(); // false
+date.isSaturday(); // false
+date.isSunday(); // false
+```
+### getDaysInMonth
+Determine the number of days in the current month  
+@returns {number}
+```js
+// example
+let date = new Date('2022-11-01');
+date.getDaysInMonth(); // 30
+```
+
+### getWeek
+Determines the calendar week of the date  
+@returns {number}
+```js
+// example
+let date = new Date('2022-11-01');
+date.getWeek(); // 44 
+```
+### getCountWeeks
+Determines the number of weeks between two dates  
+@param {Date} toDate  
+@returns {number}
+```js
+// example
+let date = new Date('2022-11-01');
+let toDate = new Date('2022-11-14');
+date.getCountWeeks(toDate); // 2
+```
+### getCountDays
+Determines the number of days between two dates  
+@param {Date} toDate  
+@returns {number}
+```js
+// example
+let date = new Date('2022-11-01');
+let toDate = new Date('2022-11-14');
+date.getCountDays(toDate); // 14
+```
+### getMonthCalendar
+Returns all data of one month as array
+@param {Date|null} toDate  
+@returns {number}
+
+```js
+// example
+let date = new Date('2022-11-01');
+let result = date.getMonthCalendar();
+// output result
+[
+    {
+        "week": 44,
+        "days": [
+            "2022-10-31T23:00:00.000Z",
+            "2022-11-01T23:00:00.000Z",
+            "2022-11-02T23:00:00.000Z",
+            "2022-11-03T23:00:00.000Z",
+            "2022-11-04T23:00:00.000Z",
+            "2022-11-05T23:00:00.000Z",
+            "2022-11-06T23:00:00.000Z"
+        ]
+    },
+    {
+        "week": 45,
+        "days": [
+            "2022-11-07T23:00:00.000Z",
+            "2022-11-08T23:00:00.000Z",
+            "2022-11-09T23:00:00.000Z",
+            "2022-11-10T23:00:00.000Z",
+            "2022-11-11T23:00:00.000Z",
+            "2022-11-12T23:00:00.000Z",
+            "2022-11-13T23:00:00.000Z"
+        ]
+    },
+    {
+        "week": 46,
+        "days": [
+            "2022-11-14T23:00:00.000Z",
+            "2022-11-15T23:00:00.000Z",
+            "2022-11-16T23:00:00.000Z",
+            "2022-11-17T23:00:00.000Z",
+            "2022-11-18T23:00:00.000Z",
+            "2022-11-19T23:00:00.000Z",
+            "2022-11-20T23:00:00.000Z"
+        ]
+    },
+    {
+        "week": 47,
+        "days": [
+            "2022-11-21T23:00:00.000Z",
+            "2022-11-22T23:00:00.000Z",
+            "2022-11-23T23:00:00.000Z",
+            "2022-11-24T23:00:00.000Z",
+            "2022-11-25T23:00:00.000Z",
+            "2022-11-26T23:00:00.000Z",
+            "2022-11-27T23:00:00.000Z"
+        ]
+    },
+    {
+        "week": 48,
+        "days": [
+            "2022-11-28T23:00:00.000Z",
+            "2022-11-29T23:00:00.000Z",
+            "2022-11-30T23:00:00.000Z",
+            "2022-12-01T23:00:00.000Z",
+            "2022-12-02T23:00:00.000Z",
+            "2022-12-03T23:00:00.000Z",
+            "2022-12-04T23:00:00.000Z"
+        ]
+    }
+]
 ```
