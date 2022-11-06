@@ -76,7 +76,7 @@ let prevMonday = date.getFirstDayOfWeek(); // 2022-11-07
 ### getLastDayOfWeek
 Determine the Sunday of the current date  
 @returns {Date}
-```
+```js
 // example
 let date = new Date('2022-11-10');
 let nextSunday = date.getLastDayOfWeek(); // 2022-11-13
