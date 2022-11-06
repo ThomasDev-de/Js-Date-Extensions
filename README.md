@@ -1,4 +1,4 @@
-# Js-Date-Extensions
+Dr# Js-Date-Extensions
 
 ## Method that manipulate the Date object
 ### addDays
@@ -45,7 +45,7 @@ date.subMonths(1); // 2022-10-01
 ```js
 // example
 let date = new Date('2022-11-01');
-let copyDate = date.clone(); // 2022-10-01
+let copyDate = date.clone(); // 2022-11-01
 ```
 ### getFirstDayOfMonth
 Determine the first day of the current month  
