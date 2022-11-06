@@ -1,4 +1,54 @@
 // noinspection JSUnusedGlobalSymbols
+Date.locale = {
+    en: {
+        dayNames: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        dayNamesShort: ["M", "T", "W", "T", "F", "S", "S"],
+        monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+    },
+    de: {
+        dayNames: ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"],
+        dayNamesShort: ["M", "D", "M", "D", "F", "S", "S"],
+        monthNames: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
+        monthNamesShort: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez']
+    }
+};
+
+Date.DEFAULT_LOCALE = 'de';
+/**
+ *
+ * @param {string} locale
+ */
+Date.setLocale = function (locale) {
+    Date.DEFAULT_LOCALE = locale && (locale in Date.locale) ? locale : Date.DEFAULT_LOCALE;
+};
+
+/**
+ *
+ * @param {boolean} abbreviation
+ * @return {string}
+ */
+Date.prototype.getMonthName = function (abbreviation = false) {
+    let locale = Date.locale[Date.DEFAULT_LOCALE];
+    let month = this.getMonth();
+    return abbreviation
+        ? locale.monthNamesShort[month]
+        : locale.monthNames[month];
+};
+/**
+ *
+ * @param {boolean} abbreviation
+ * @return {string}
+ */
+Date.prototype.getDayName = function (abbreviation = false) {
+    let locale = Date.locale[Date.DEFAULT_LOCALE];
+
+    let day = this.getDay() === 0 ? 6 : (this.getDay() - 1);
+    // console.log(day);
+    return abbreviation
+        ? locale.dayNamesShort[day]
+        : locale.dayNames[day];
+};
 
 /**
  * Adds a specified number of days to the date
@@ -199,7 +249,58 @@ Date.prototype.getCountDays = function (toDate) {
         Math.abs(toDate.getTime() - this.getTime()) / (1000 * 60 * 60 * 24),
     );
 }
+Date.prototype.fromNow = function () {
+    let nowTime = new Date().getTime() / 1000;
+    let time = this.getTime() / 1000;
+    let duration = (nowTime > time) ? nowTime - time : time - nowTime ;
+    let minus = (nowTime > time);
 
+    let aSecond = 1;
+    let aMinute = aSecond * 60;
+    let aHour = aMinute * 60;
+    let aDay = aHour * 24;
+    let aMonth = aDay * 30;
+    let aYear = aDay * 365;
+
+    let text = 'seconds';
+    let number = duration;
+
+    switch (true) {
+        case duration > aYear:
+            text = 'year';
+            number = Math.round(duration / aYear);
+            break;
+        case duration > aDay:
+            text = 'month';
+            number = Math.round(duration / aMonth);
+            break;
+        case duration > aDay:
+            text = 'day';
+            number = Math.round(duration / aDay);
+            break;
+        case duration > aHour:
+            text = 'hour';
+            number = Math.round(duration / aHour);
+            break;
+        case duration > aMinute:
+            text = 'minutes';
+            number = Math.round(duration / aMinute);
+            break;
+            case duration > 30 * aSecond:
+            text = 'seconds';
+            number = Math.round(duration);
+            break;
+        default:
+            return "a moment ago"
+    }
+
+    if (minus)
+        number *= -1;
+
+
+    return new Intl.RelativeTimeFormat("de", { numeric: "auto" }).format(number, text);
+
+}
 /**
  *
  * @param asArray
@@ -220,23 +321,24 @@ Date.prototype.formatDate = function (asArray) {
 /**
  * Returns all data of one month as array
  * @return {*[]}
- * @param {Date|null} date
  */
-Date.prototype.getMonthCalendar = function (date = null) {
-    const today = date || new Date(this.valueOf());
-    const startDay = today.getFirstDayOfMonth().getFirstDayOfWeek();
-    const endDay = today.getLastDayOfMonth().getLastDayOfWeek();
+Date.prototype.getMonthCalendar = function () {
+    this.setHours(0, 0, 0, 0)
+    const startDay = this.getFirstDayOfMonth().getFirstDayOfWeek();
+    const endDay = this.getLastDayOfMonth().getLastDayOfWeek();
 
-    let d = startDay.clone();
-    let weeks = [];
-    while (d <= endDay) {
-        weeks.push({
-            week: d.getWeek(),
+    console.log(startDay, endDay);
+
+    let array = [];
+    while (startDay <= endDay) {
+        array.push({
+            week: startDay.getWeek(),
             days: Array(7).fill(0).map(() => {
-                d = d.clone().addDays(1);
+                let d = startDay.clone();
+                startDay.addDays(1);
                 return d;
             })
         });
     }
-    return weeks;
+    return array;
 }

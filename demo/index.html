@@ -44,20 +44,27 @@
     </thead>
     <tbody></tbody>
 </table>
+<pre id="test"></pre>
 <script src="../dist/js-date-extensions.js"></script>
     <script type="text/javascript">
+        let test = new Date('2022-11-06 23:54:00');
+        console.log(test.fromNow());
         const today = new Date();
-        let weeks = today.getMonthCalendar();
+        console.log(today);
+        let weeksArray = today.getMonthCalendar();
+        console.log('test',weeksArray);
         let tbody = document.getElementsByTagName('tbody')[0];
+        document.getElementById('test').innerHTML = JSON.stringify(weeksArray,null,"\t");
 
-        weeks.forEach(o => {
+        weeksArray.forEach(o => {
             let row = document.createElement('tr');
             let weekTd = document.createElement('td');
             weekTd.innerText = o.week;
             row.appendChild(weekTd);
             o.days.forEach(date => {
+
                 let dateTd = document.createElement('td');
-                dateTd.innerText = date.getUTCDate();
+                dateTd.innerText = date.getDate();
                 if (date === today){
                     dateTd.classList.add('active');
                 }
