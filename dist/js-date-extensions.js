@@ -18,11 +18,11 @@ Date.locale = {
 };
 
 Date.units = {
-    year  : 24 * 60 * 60 * 1000 * 365,
-    month : 24 * 60 * 60 * 1000 * 365/12,
-    week   : 24 * 60 * 60 * 1000 * 7,
-    day   : 24 * 60 * 60 * 1000,
-    hour  : 60 * 60 * 1000,
+    year: 24 * 60 * 60 * 1000 * 365,
+    month: 24 * 60 * 60 * 1000 * 365 / 12,
+    week: 24 * 60 * 60 * 1000 * 7,
+    day: 24 * 60 * 60 * 1000,
+    hour: 60 * 60 * 1000,
     minute: 60 * 1000,
     second: 1000
 }
@@ -39,14 +39,39 @@ Date.setLocale = function (locale) {
 /**
  *
  * @param {boolean} abbreviation
+ * @returns {string[]}
+ */
+Date.getDayNames = function (abbreviation = false) {
+    const formatter = new Intl.DateTimeFormat(Date.DEFAULT_LOCALE, {weekday: abbreviation ? 'short' : 'long', timeZone: 'UTC'});
+    const days = [2, 3, 4, 5, 6, 7, 8].map(day => {
+        const dd = day < 10 ? `0${day}` : day;
+        return new Date(`2017-01-${dd}T00:00:00+00:00`);
+    });
+    return days.map(date => formatter.format(date));
+}
+
+/**
+ *
+ * @param {boolean} abbreviation
+ * @returns {string[]}
+ */
+Date.getMonthNames = function (abbreviation = false) {
+    const formatter = new Intl.DateTimeFormat(Date.DEFAULT_LOCALE, {month: abbreviation ? 'short' : 'long', timeZone: 'UTC'});
+    const months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(month => {
+        const mm = month < 10 ? `0${month}` : month;
+        return new Date(`2017-${mm}-01T00:00:00+00:00`);
+    });
+    return months.map(date => formatter.format(date));
+}
+
+/**
+ *
+ * @param {boolean} abbreviation
  * @return {string}
  */
 Date.prototype.getMonthName = function (abbreviation = false) {
-    let locale = Date.locale[Date.DEFAULT_LOCALE];
-    let month = this.getMonth();
-    return abbreviation
-        ? locale.monthNamesShort[month]
-        : locale.monthNames[month];
+    const formatter = new Intl.DateTimeFormat(Date.DEFAULT_LOCALE, {month: abbreviation ? 'short' : 'long', timeZone: 'UTC'});
+    return formatter.format(this);
 };
 /**
  *
@@ -54,13 +79,8 @@ Date.prototype.getMonthName = function (abbreviation = false) {
  * @return {string}
  */
 Date.prototype.getDayName = function (abbreviation = false) {
-    let locale = Date.locale[Date.DEFAULT_LOCALE];
-
-    let day = this.getDay() === 0 ? 6 : (this.getDay() - 1);
-    // console.log(day);
-    return abbreviation
-        ? locale.dayNamesShort[day]
-        : locale.dayNames[day];
+    const formatter = new Intl.DateTimeFormat(Date.DEFAULT_LOCALE, {weekday: abbreviation ? 'short' : 'long', timeZone: 'UTC'});
+    return formatter.format(this);
 };
 
 /**
@@ -263,7 +283,7 @@ Date.prototype.getCountDays = function (toDate) {
     );
 }
 Date.prototype.fromNow = function () {
-    let rtf = new Intl.RelativeTimeFormat(Date.DEFAULT_LOCALE, { numeric: 'auto' })
+    let rtf = new Intl.RelativeTimeFormat(Date.DEFAULT_LOCALE, {numeric: 'auto'})
 
     let getRelativeTime = (d1, d2 = new Date()) => {
         let elapsed = d1 - d2
@@ -271,7 +291,7 @@ Date.prototype.fromNow = function () {
         // "Math.abs" accounts for both "past" & "future" scenarios
         for (let u in Date.units)
             if (Math.abs(elapsed) > Date.units[u] || u == 'second')
-                return rtf.format(Math.round(elapsed/Date.units[u]), u)
+                return rtf.format(Math.round(elapsed / Date.units[u]), u);
     }
 
     return getRelativeTime(this.valueOf())
