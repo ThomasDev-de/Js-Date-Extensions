@@ -13,7 +13,8 @@
         + [addMonths](#addmonths)
         + [subMonths](#submonths)
     * [Methods that return a new instance of the Date object](#methods-that-return-a-new-instance-of-the-date-object)
-        + [clone | copy](#clone---copy)
+        + [clone](#clone)
+        + [copy](#copy)
         + [getFirstDayOfMonth](#getfirstdayofmonth)
         + [getLastDayOfMonth](#getlastdayofmonth)
         + [getFirstDayOfWeek](#getfirstdayofweek)
@@ -100,13 +101,19 @@ date.subMonths(1); // 2022-10-01
 ```
 ## Methods that return a new instance of the Date object
 
-### clone | copy
-Returns a new instance of the Date object
+### clone
 @returns {Date}
 ```js
 // example
 let date = new Date('2022-11-01');
 let cloneDate = date.clone(); // 2022-11-01
+```
+### copy
+Returns a new instance of the Date object (alias of `clone`)  
+@returns {Date}
+```js
+// example
+let date = new Date('2022-11-01');
 let copyDate = date.copy(); // 2022-11-01
 ```
 ### getFirstDayOfMonth
