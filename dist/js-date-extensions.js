@@ -229,6 +229,13 @@ Date.prototype.getLastDayOfWeek = function () {
 Date.prototype.clone = function () {
     return new Date(this.valueOf());
 }
+/**
+ *
+ * @returns {Date}
+ */
+Date.prototype.copy = function () {
+    return this.clone();
+}
 
 /**
  *

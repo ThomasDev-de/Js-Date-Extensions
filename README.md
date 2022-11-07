@@ -12,6 +12,7 @@
     + [subMonths](#submonths)
   * [Methods that return a new instance of the Date object](#methods-that-return-a-new-instance-of-the-date-object)
     + [clone](#clone)
+    + [copy](#clone)
     + [getFirstDayOfMonth](#getfirstdayofmonth)
     + [getLastDayOfMonth](#getlastdayofmonth)
     + [getFirstDayOfWeek](#getfirstdayofweek)
@@ -88,12 +89,13 @@ date.subMonths(1); // 2022-10-01
 ```
 ## Methods that return a new instance of the Date object
 
-### clone
+### clone | copy
 @returns {Date}
 ```js
 // example
 let date = new Date('2022-11-01');
-let copyDate = date.clone(); // 2022-11-01
+let cloneDate = date.clone(); // 2022-11-01
+let copyDate = date.copy(); // 2022-11-01
 ```
 ### getFirstDayOfMonth
 Determine the first day of the current month  
