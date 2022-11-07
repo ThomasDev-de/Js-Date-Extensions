@@ -1,4 +1,33 @@
 # Js-Date-Extensions
+
+- [Js-Date-Extensions](#js-date-extensions)
+  * [generell methods](#generell-methods)
+    + [setLocale](#setlocale)
+    + [getDayNames](#getdaynames)
+    + [getMonthNames](#getmonthnames)
+  * [Method that manipulate the Date object](#method-that-manipulate-the-date-object)
+    + [addDays](#adddays)
+    + [subDays](#subdays)
+    + [addMonths](#addmonths)
+    + [subMonths](#submonths)
+  * [Methods that return a new instance of the Date object](#methods-that-return-a-new-instance-of-the-date-object)
+    + [clone](#clone)
+    + [getFirstDayOfMonth](#getfirstdayofmonth)
+    + [getLastDayOfMonth](#getlastdayofmonth)
+    + [getFirstDayOfWeek](#getfirstdayofweek)
+    + [getLastDayOfWeek](#getlastdayofweek)
+  * [Test methods that return none date object](#test-methods-that-return-none-date-object)
+    + [isLeapYear](#isleapyear)
+    + [isMonday, isTuesday, isWednesday, isThursday, isFriday, isSaturday, isSunday](#ismonday--istuesday--iswednesday--isthursday--isfriday--issaturday--issunday)
+    + [getDaysInMonth](#getdaysinmonth)
+    + [getWeek](#getweek)
+    + [getCountWeeks](#getcountweeks)
+    + [getCountDays](#getcountdays)
+    + [fromNow](#fromnow)
+    + [getDayName](#getdayname)
+    + [getMonthName](#getmonthname)
+    + [getMonthCalendar](#getmonthcalendar)
+
 ## generell methods
 ### setLocale
 ```js
