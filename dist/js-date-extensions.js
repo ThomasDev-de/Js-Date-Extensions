@@ -1,4 +1,7 @@
 // noinspection JSUnusedGlobalSymbols
+
+Date.DEFAULT_LOCALE = 'de';
+
 Date.locale = {
     en: {
         dayNames: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
@@ -14,7 +17,17 @@ Date.locale = {
     }
 };
 
-Date.DEFAULT_LOCALE = 'de';
+Date.units = {
+    year  : 24 * 60 * 60 * 1000 * 365,
+    month : 24 * 60 * 60 * 1000 * 365/12,
+    week   : 24 * 60 * 60 * 1000 * 7,
+    day   : 24 * 60 * 60 * 1000,
+    hour  : 60 * 60 * 1000,
+    minute: 60 * 1000,
+    second: 1000
+}
+
+
 /**
  *
  * @param {string} locale
@@ -235,7 +248,7 @@ Date.prototype.getWeek = function () {
  */
 Date.prototype.getCountWeeks = function (toDate) {
     return Math.round(
-        Math.abs(toDate.getTime() - this.getTime()) / (1000 * 60 * 60 * 24 * 7),
+        Math.abs(toDate.getTime() - this.getTime()) / Date.units.week,
     );
 }
 
@@ -246,61 +259,24 @@ Date.prototype.getCountWeeks = function (toDate) {
  */
 Date.prototype.getCountDays = function (toDate) {
     return Math.round(
-        Math.abs(toDate.getTime() - this.getTime()) / (1000 * 60 * 60 * 24),
+        Math.abs(toDate.getTime() - this.getTime()) / Date.units.day,
     );
 }
 Date.prototype.fromNow = function () {
-    let nowTime = new Date().getTime() / 1000;
-    let time = this.getTime() / 1000;
-    let duration = (nowTime > time) ? nowTime - time : time - nowTime ;
-    let minus = (nowTime > time);
+    let rtf = new Intl.RelativeTimeFormat(Date.DEFAULT_LOCALE, { numeric: 'auto' })
 
-    let aSecond = 1;
-    let aMinute = aSecond * 60;
-    let aHour = aMinute * 60;
-    let aDay = aHour * 24;
-    let aMonth = aDay * 30;
-    let aYear = aDay * 365;
+    let getRelativeTime = (d1, d2 = new Date()) => {
+        let elapsed = d1 - d2
 
-    let text = 'seconds';
-    let number = duration;
-
-    switch (true) {
-        case duration > aYear:
-            text = 'year';
-            number = Math.round(duration / aYear);
-            break;
-        case duration > aDay:
-            text = 'month';
-            number = Math.round(duration / aMonth);
-            break;
-        case duration > aDay:
-            text = 'day';
-            number = Math.round(duration / aDay);
-            break;
-        case duration > aHour:
-            text = 'hour';
-            number = Math.round(duration / aHour);
-            break;
-        case duration > aMinute:
-            text = 'minutes';
-            number = Math.round(duration / aMinute);
-            break;
-            case duration > 30 * aSecond:
-            text = 'seconds';
-            number = Math.round(duration);
-            break;
-        default:
-            return "a moment ago"
+        // "Math.abs" accounts for both "past" & "future" scenarios
+        for (let u in Date.units)
+            if (Math.abs(elapsed) > Date.units[u] || u == 'second')
+                return rtf.format(Math.round(elapsed/Date.units[u]), u)
     }
 
-    if (minus)
-        number *= -1;
-
-
-    return new Intl.RelativeTimeFormat("de", { numeric: "auto" }).format(number, text);
-
+    return getRelativeTime(this.valueOf())
 }
+
 /**
  *
  * @param asArray

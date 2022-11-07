@@ -145,6 +145,12 @@ let date = new Date('2022-11-01');
 let toDate = new Date('2022-11-14');
 date.getCountDays(toDate); // 14
 ```
+### fromNow
+```js
+let date = new Date('2022-11-06 23:54:00');
+// Now: 2022-11-07 05:55:00
+date.fromNow(); // vor 6 Stunden
+```
 ### getMonthCalendar
 Returns all data of one month as array  
 @param {Date|null} toDate   
