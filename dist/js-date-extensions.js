@@ -2,21 +2,6 @@
 
 Date.DEFAULT_LOCALE = 'de';
 
-Date.locale = {
-    en: {
-        dayNames: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-        dayNamesShort: ["M", "T", "W", "T", "F", "S", "S"],
-        monthNames: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
-        monthNamesShort: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
-    },
-    de: {
-        dayNames: ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"],
-        dayNamesShort: ["M", "D", "M", "D", "F", "S", "S"],
-        monthNames: ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'],
-        monthNamesShort: ['Jan', 'Feb', 'Mär', 'Apr', 'Mai', 'Jun', 'Jul', 'Aug', 'Sep', 'Okt', 'Nov', 'Dez']
-    }
-};
-
 Date.units = {
     year: 24 * 60 * 60 * 1000 * 365,
     month: 24 * 60 * 60 * 1000 * 365 / 12,
@@ -33,7 +18,7 @@ Date.units = {
  * @param {string} locale
  */
 Date.setLocale = function (locale) {
-    Date.DEFAULT_LOCALE = locale && (locale in Date.locale) ? locale : Date.DEFAULT_LOCALE;
+    Date.DEFAULT_LOCALE = locale ? locale : Date.DEFAULT_LOCALE;
 };
 
 /**

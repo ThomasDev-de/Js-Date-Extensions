@@ -30,31 +30,28 @@
 </head>
 <body>
 <table class="table">
-    <thead>
-    <tr>
-        <th></th>
-        <th>M</th>
-        <th>T</th>
-        <th>W</th>
-        <th>T</th>
-        <th>F</th>
-        <th>S</th>
-        <th>S</th>
-    </tr>
-    </thead>
+    <thead></thead>
     <tbody></tbody>
 </table>
 <pre id="test"></pre>
 <script src="../dist/js-date-extensions.js"></script>
     <script type="text/javascript">
-        let test = new Date();
-        console.log(Date.getDayNames(true));
         const today = new Date();
-        console.log(today);
+console.log(Date.getMonthNames(true));
+        const thead = document.getElementsByTagName('thead')[0];
+        const tbody = document.getElementsByTagName('tbody')[0];
+
+        // build thead
+        let tr = document.createElement('tr');
+        thead.appendChild(tr);
+        tr.appendChild(document.createElement('th'));
+        Date.getDayNames(true).forEach(dayName => {
+            let th = document.createElement('th');
+            th.innerText = dayName;
+            tr.appendChild(th);
+        })
+        // build tbody
         let weeksArray = today.getMonthCalendar();
-        console.log('test',weeksArray);
-        let tbody = document.getElementsByTagName('tbody')[0];
-        document.getElementById('test').innerHTML = JSON.stringify(weeksArray,null,"\t");
 
         weeksArray.forEach(o => {
             let row = document.createElement('tr');

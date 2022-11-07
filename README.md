@@ -1,5 +1,24 @@
-Dr# Js-Date-Extensions
-
+# Js-Date-Extensions
+## generell methods
+### setLocale
+```js
+// example
+Date.setLocale('de');
+```
+### getDayNames
+@param {boolean} abbreviation Default `false`  
+@returns {string[]}
+```js
+// example
+Date.getDayNames(true); // [ "Mo", "Di", "Mi", "Do", "Fr", "Sa", "So" ]
+```
+### getMonthNames
+@param {boolean} abbreviation Default `false`  
+@returns {string[]}
+```js
+// example
+Date.getMonthNames(true); // [ "Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"]
+```
 ## Method that manipulate the Date object
 ### addDays
 Adds a specified number of days to the date  
@@ -150,6 +169,18 @@ date.getCountDays(toDate); // 14
 let date = new Date('2022-11-06 23:54:00');
 // Now: 2022-11-07 05:55:00
 date.fromNow(); // vor 6 Stunden
+```
+### getDayName
+```js
+let date = new Date('2022-11-06 23:54:00');
+// Now: 2022-11-07 05:55:00
+date.getDayName(); // Sonntag
+```
+### getMonthName
+```js
+let date = new Date('2022-11-06 23:54:00');
+// Now: 2022-11-07 05:55:00
+date.getMonthName(); // November
 ```
 ### getMonthCalendar
 Returns all data of one month as array  
