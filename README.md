@@ -1,8 +1,10 @@
 # Js-Date-Extensions
 ## Table of contents
 - [Js-Date-Extensions](#js-date-extensions)
+    * [Table of contents](#table-of-contents)
     * [generell methods](#generell-methods)
         + [setLocale](#setlocale)
+        + [getUnits](#getunits)
         + [getDayNames](#getdaynames)
         + [getMonthNames](#getmonthnames)
     * [Method that manipulate the Date object](#method-that-manipulate-the-date-object)
@@ -27,7 +29,6 @@
         + [getDayName](#getdayname)
         + [getMonthName](#getmonthname)
         + [getMonthCalendar](#getmonthcalendar)
-
 ## generell methods
 
 ### setLocale
