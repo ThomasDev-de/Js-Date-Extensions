@@ -2,7 +2,7 @@
 
 Date.DEFAULT_LOCALE = 'de';
 
-Date.units = {
+Date.UNITS = {
     year: 24 * 60 * 60 * 1000 * 365,
     month: 24 * 60 * 60 * 1000 * 365 / 12,
     week: 24 * 60 * 60 * 1000 * 7,
@@ -12,7 +12,6 @@ Date.units = {
     second: 1000
 }
 
-
 /**
  *
  * @param {string} locale
@@ -20,6 +19,10 @@ Date.units = {
 Date.setLocale = function (locale) {
     Date.DEFAULT_LOCALE = locale ? locale : Date.DEFAULT_LOCALE;
 };
+
+Date.getUnits = function(){
+    return Date.UNITS;
+}
 
 /**
  *
@@ -205,7 +208,7 @@ Date.prototype.getLastDayOfMonth = function () {
  * @returns {Date}
  */
 Date.prototype.getFirstDayOfWeek = function () {
-    let d = new Date(this.valueOf());
+    let d = this.copy();
     let day = d.getDay(),
         diff = d.getDate() - day + (day === 0 ? -6 : 1); // adjust when day is sunday
     return new Date(d.setDate(diff));
@@ -216,7 +219,7 @@ Date.prototype.getFirstDayOfWeek = function () {
  * @returns {Date}
  */
 Date.prototype.getLastDayOfWeek = function () {
-    let d = new Date(this.valueOf());
+    let d = this.clone();
     const first = d.getDate() - d.getDay() + 1;
     const last = first + 6;
 
@@ -250,7 +253,7 @@ Date.prototype.getWeek = function () {
     // Get first day of year
     let yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
     // Calculate full weeks to the nearest Thursday and return  week number
-    return Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+    return Math.ceil((((d - yearStart) / Date.UNITS.day) + 1) / 7);
 }
 
 /**
@@ -260,7 +263,7 @@ Date.prototype.getWeek = function () {
  */
 Date.prototype.getCountWeeks = function (toDate) {
     return Math.round(
-        Math.abs(toDate.getTime() - this.getTime()) / Date.units.week,
+        Math.abs(toDate.getTime() - this.getTime()) / Date.UNITS.week,
     );
 }
 
@@ -271,7 +274,7 @@ Date.prototype.getCountWeeks = function (toDate) {
  */
 Date.prototype.getCountDays = function (toDate) {
     return Math.round(
-        Math.abs(toDate.getTime() - this.getTime()) / Date.units.day,
+        Math.abs(toDate.getTime() - this.getTime()) / Date.UNITS.day,
     );
 }
 Date.prototype.fromNow = function () {
@@ -281,9 +284,9 @@ Date.prototype.fromNow = function () {
         let elapsed = d1 - d2
 
         // "Math.abs" accounts for both "past" & "future" scenarios
-        for (let u in Date.units)
-            if (Math.abs(elapsed) > Date.units[u] || u == 'second')
-                return rtf.format(Math.round(elapsed / Date.units[u]), u);
+        for (let u in Date.UNITS)
+            if (Math.abs(elapsed) > Date.UNITS[u] || u == 'second')
+                return rtf.format(Math.round(elapsed / Date.UNITS[u]), u);
     }
 
     return getRelativeTime(this.valueOf())
@@ -311,7 +314,7 @@ Date.prototype.formatDate = function (asArray) {
  * @return {*[]}
  */
 Date.prototype.getMonthCalendar = function () {
-    this.setHours(0, 0, 0, 0)
+    // this.setHours(0, 0, 0, 0);
     const startDay = this.getFirstDayOfMonth().getFirstDayOfWeek();
     const endDay = this.getLastDayOfMonth().getLastDayOfWeek();
 

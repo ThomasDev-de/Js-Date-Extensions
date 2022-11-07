@@ -1,40 +1,50 @@
 # Js-Date-Extensions
-
+## Table of contents
 - [Js-Date-Extensions](#js-date-extensions)
-  * [generell methods](#generell-methods)
-    + [setLocale](#setlocale)
-    + [getDayNames](#getdaynames)
-    + [getMonthNames](#getmonthnames)
-  * [Method that manipulate the Date object](#method-that-manipulate-the-date-object)
-    + [addDays](#adddays)
-    + [subDays](#subdays)
-    + [addMonths](#addmonths)
-    + [subMonths](#submonths)
-  * [Methods that return a new instance of the Date object](#methods-that-return-a-new-instance-of-the-date-object)
-    + [clone](#clone)
-    + [copy](#clone)
-    + [getFirstDayOfMonth](#getfirstdayofmonth)
-    + [getLastDayOfMonth](#getlastdayofmonth)
-    + [getFirstDayOfWeek](#getfirstdayofweek)
-    + [getLastDayOfWeek](#getlastdayofweek)
-  * [Test methods that return none date object](#test-methods-that-return-none-date-object)
-    + [isLeapYear](#isleapyear)
-    + [isMonday, isTuesday, isWednesday, isThursday, isFriday, isSaturday, isSunday](#ismonday--istuesday--iswednesday--isthursday--isfriday--issaturday--issunday)
-    + [getDaysInMonth](#getdaysinmonth)
-    + [getWeek](#getweek)
-    + [getCountWeeks](#getcountweeks)
-    + [getCountDays](#getcountdays)
-    + [fromNow](#fromnow)
-    + [getDayName](#getdayname)
-    + [getMonthName](#getmonthname)
-    + [getMonthCalendar](#getmonthcalendar)
+    * [generell methods](#generell-methods)
+        + [setLocale](#setlocale)
+        + [getDayNames](#getdaynames)
+        + [getMonthNames](#getmonthnames)
+    * [Method that manipulate the Date object](#method-that-manipulate-the-date-object)
+        + [addDays](#adddays)
+        + [subDays](#subdays)
+        + [addMonths](#addmonths)
+        + [subMonths](#submonths)
+    * [Methods that return a new instance of the Date object](#methods-that-return-a-new-instance-of-the-date-object)
+        + [clone | copy](#clone---copy)
+        + [getFirstDayOfMonth](#getfirstdayofmonth)
+        + [getLastDayOfMonth](#getlastdayofmonth)
+        + [getFirstDayOfWeek](#getfirstdayofweek)
+        + [getLastDayOfWeek](#getlastdayofweek)
+    * [Test methods that return none date object](#test-methods-that-return-none-date-object)
+        + [isLeapYear](#isleapyear)
+        + [isMonday, isTuesday, isWednesday, isThursday, isFriday, isSaturday, isSunday](#ismonday--istuesday--iswednesday--isthursday--isfriday--issaturday--issunday)
+        + [getDaysInMonth](#getdaysinmonth)
+        + [getWeek](#getweek)
+        + [getCountWeeks](#getcountweeks)
+        + [getCountDays](#getcountdays)
+        + [fromNow](#fromnow)
+        + [getDayName](#getdayname)
+        + [getMonthName](#getmonthname)
+        + [getMonthCalendar](#getmonthcalendar)
 
 ## generell methods
+
 ### setLocale
+Set the language
 ```js
 // example
 Date.setLocale('de');
 ```
+### getUnits
+Fetches the time units in milliseconds  
+@return {object}
+```js
+// example
+Date.getUnits();
+// { year: 31536000000, month: 2628000000, week: 604800000, day: 86400000, hour: 3600000, minute: 60000, second: 1000 }
+```
+
 ### getDayNames
 @param {boolean} abbreviation Default `false`  
 @returns {string[]}
@@ -90,6 +100,7 @@ date.subMonths(1); // 2022-10-01
 ## Methods that return a new instance of the Date object
 
 ### clone | copy
+Returns a new instance of the Date object
 @returns {Date}
 ```js
 // example
