@@ -1,4 +1,5 @@
 # Js-Date-Extensions
+A few useful extensions for the javascript object Date
 ## Table of contents
 - [Js-Date-Extensions](#js-date-extensions)
     * [Table of contents](#table-of-contents)
