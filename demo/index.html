@@ -10,22 +10,28 @@
             /*width: 100%;*/
         }
 
-        table th{
+        table th {
             background-color: #f2f2f2;
         }
+
         table td, table th {
             border: 1px solid #ddd;
             padding: 8px;
             text-align: center;
             width: 20px;
         }
+
         table td.active {
             font-weight: bold;
         }
 
-        table tr td:first-child{background-color: #f2f2f2;}
+        table tr td:first-child {
+            background-color: #f2f2f2;
+        }
 
-        table tr:hover {background-color: #ddd;}
+        table tr:hover {
+            background-color: #ddd;
+        }
     </style>
 </head>
 <body>
@@ -35,41 +41,41 @@
 </table>
 <pre id="test"></pre>
 <script src="../dist/js-date-extensions.js"></script>
-    <script type="text/javascript">
-        const today = new Date();
-console.log(Date.getUnits());
-        const thead = document.getElementsByTagName('thead')[0];
-        const tbody = document.getElementsByTagName('tbody')[0];
+<script type="text/javascript">
+    const today = new Date();
+    console.log(today.getWeekCalendar());
+    const thead = document.getElementsByTagName('thead')[0];
+    const tbody = document.getElementsByTagName('tbody')[0];
 
-        // build thead
-        let tr = document.createElement('tr');
-        thead.appendChild(tr);
-        tr.appendChild(document.createElement('th'));
-        Date.getDayNames(true).forEach(dayName => {
-            let th = document.createElement('th');
-            th.innerText = dayName;
-            tr.appendChild(th);
+    // build thead
+    let tr = document.createElement('tr');
+    thead.appendChild(tr);
+    tr.appendChild(document.createElement('th'));
+    Date.getDayNames(true).forEach(dayName => {
+        let th = document.createElement('th');
+        th.innerText = dayName;
+        tr.appendChild(th);
+    })
+    // build tbody
+    let weeksArray = today.getMonthCalendar();
+
+    weeksArray.forEach(o => {
+        let row = document.createElement('tr');
+        let weekTd = document.createElement('td');
+        weekTd.innerText = o.week;
+        row.appendChild(weekTd);
+        o.days.forEach(date => {
+
+            let dateTd = document.createElement('td');
+            dateTd.innerText = date.getDate();
+            if (date === today) {
+                dateTd.classList.add('active');
+            }
+            row.appendChild(dateTd);
         })
-        // build tbody
-        let weeksArray = today.getMonthCalendar();
 
-        weeksArray.forEach(o => {
-            let row = document.createElement('tr');
-            let weekTd = document.createElement('td');
-            weekTd.innerText = o.week;
-            row.appendChild(weekTd);
-            o.days.forEach(date => {
-
-                let dateTd = document.createElement('td');
-                dateTd.innerText = date.getDate();
-                if (date === today){
-                    dateTd.classList.add('active');
-                }
-                row.appendChild(dateTd);
-            })
-
-            tbody.appendChild(row);
-        });
+        tbody.appendChild(row);
+    });
 </script>
 </body>
 </html>

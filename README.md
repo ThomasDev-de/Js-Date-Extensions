@@ -235,7 +235,6 @@ date.getMonthName(); // November
 ```
 ### getMonthCalendar
 Returns all data of one month as array  
-@param {Date|null} toDate   
 @return {*[]}
 
 ```js
@@ -304,5 +303,24 @@ let result = date.getMonthCalendar();
             "2022-12-04T23:00:00.000Z"
         ]
     }
+]
+```
+### getWeekCalendar
+Returns all data of one week as array  
+@return {*[]}
+
+```js
+// example
+let date = new Date('2023-02-09');
+let result = date.getWeekCalendar();
+// output result
+[
+    "2023-02-06T23:00:00.000Z",
+    "2023-02-07T23:00:00.000Z",
+    "2023-02-08T23:00:00.000Z",
+    "2023-02-09T23:00:00.000Z",
+    "2023-02-10T23:00:00.000Z",
+    "2023-02-11T23:00:00.000Z",
+    "2023-02-12T23:00:00.000Z",
 ]
 ```

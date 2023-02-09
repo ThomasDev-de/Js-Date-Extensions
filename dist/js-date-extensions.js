@@ -333,3 +333,15 @@ Date.prototype.getMonthCalendar = function () {
     }
     return array;
 }
+/**
+ * Returns all data of one week as array
+ * @return {Date[]}
+ */
+Date.prototype.getWeekCalendar = function () {
+    const startDay = this.getFirstDayOfWeek();
+    return Array(7).fill(0).map(() => {
+        let d = startDay.clone();
+        startDay.addDays(1);
+        return d;
+    });
+}
