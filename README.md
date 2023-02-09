@@ -233,7 +233,6 @@ let date = new Date('2022-11-06 23:54:00');
 // Now: 2022-11-07 05:55:00
 date.getMonthName(); // November
 ```
-
 ### getMonthCalendar
 Returns all data of one month as array  
 @return {*[]}
