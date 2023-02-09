@@ -333,6 +333,7 @@ Date.prototype.getMonthCalendar = function () {
     }
     return array;
 }
+
 /**
  * Returns all data of one week as array
  * @return {Date[]}
