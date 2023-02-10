@@ -186,6 +186,10 @@ Date.prototype.isSunday = function () {
     return this.getDay() === Date.SUNDAY;
 }
 
+Date.prototype.isWeekend = function () {
+    return (this.getDay() === Date.SUNDAY) || (this.getDay() === Date.SATURDAY);
+}
+
 /**
  * Determine the number of days in the current month
  * @returns {number}

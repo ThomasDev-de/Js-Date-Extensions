@@ -164,7 +164,7 @@ if (date.isLeapYear()) // true
     // do something
 }
 ```
-### isMonday, isTuesday, isWednesday, isThursday, isFriday, isSaturday, isSunday
+### isMonday, isTuesday, isWednesday, isThursday, isFriday, isSaturday, isSunday, isWeekend
 Checks the date for a weekday  
 @returns {boolean}
 ```js
@@ -177,6 +177,7 @@ date.isThursday(); // false
 date.isFriday(); // false
 date.isSaturday(); // false
 date.isSunday(); // false
+date.isWeekend(); // false
 ```
 ### getDaysInMonth
 Determine the number of days in the current month  
