@@ -2,6 +2,14 @@
 
 Date.DEFAULT_LOCALE = 'de';
 
+Date.SUNDAY = 0;
+Date.MONDAY = 1;
+Date.TUESDAY = 2;
+Date.WEDNESDAY = 3;
+Date.THURSDAY = 4;
+Date.FRIDAY = 5;
+Date.SATURDAY = 6;
+
 Date.UNITS = {
     year: 24 * 60 * 60 * 1000 * 365,
     month: 24 * 60 * 60 * 1000 * 365 / 12,
@@ -132,28 +140,28 @@ Date.prototype.isLeapYear = function () {
  * @return {boolean}
  */
 Date.prototype.isMonday = function () {
-    return this.getDay() === 1;
+    return this.getDay() === Date.MONDAY;
 }
 /**
  *
  * @return {boolean}
  */
 Date.prototype.isTuesday = function () {
-    return this.getDay() === 2;
+    return this.getDay() === Date.TUESDAY;
 }
 /**
  *
  * @return {boolean}
  */
 Date.prototype.isWednesday = function () {
-    return this.getDay() === 3;
+    return this.getDay() === Date.WEDNESDAY;
 }
 /**
  *
  * @return {boolean}
  */
 Date.prototype.isThursday = function () {
-    return this.getDay() === 4;
+    return this.getDay() === Date.THURSDAY;
 }
 
 /**
@@ -161,21 +169,21 @@ Date.prototype.isThursday = function () {
  * @return {boolean}
  */
 Date.prototype.isFriday = function () {
-    return this.getDay() === 5;
+    return this.getDay() === Date.FRIDAY;
 }
 /**
  *
  * @return {boolean}
  */
 Date.prototype.isSaturday = function () {
-    return this.getDay() === 6;
+    return this.getDay() === Date.SATURDAY;
 }
 /**
  *
  * @return {boolean}
  */
 Date.prototype.isSunday = function () {
-    return this.getDay() === 0;
+    return this.getDay() === Date.SUNDAY;
 }
 
 /**
